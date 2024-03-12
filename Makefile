@@ -37,8 +37,10 @@ fclean: clean
 
 re: fclean all
 
-git:
-	git commit -m "auto commit"
-	git push
+test: all
+	@echo "${YELLOW}Testing${END}"
+	@gcc -Wall -Wextra -Werror main.c libasm.a -o test
+	@./test
+	@rm -rf test
 
-.PHONY: all clean fclean re bonus test git
+.PHONY: all clean fclean re bonus test 
