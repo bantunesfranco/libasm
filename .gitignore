@@ -1,5 +1,4 @@
 *.o
-*.vscode
-*.out
+obj
 *.a
-test
+*.vscode
