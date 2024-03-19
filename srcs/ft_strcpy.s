@@ -3,18 +3,18 @@ section .text
 
 bits 64
 ft_strcpy:
+	xor rcx, rcx
+
 	.loop:
-		mov al, [rsi]
-		test al, al
+		mov dl, [rsi + rcx]
+		mov [rdi + rcx], dl
+
+		test dl, dl
 		jz .end
 
-		mov [rdi], al
-
-		inc rsi
-		inc rdi
+		inc rcx
 		jmp .loop
 
 	.end:
-		mov qword [rdi], 0
 		mov rax, rdi
 		ret

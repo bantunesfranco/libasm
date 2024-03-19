@@ -52,8 +52,8 @@ int	cmp(const char *s1, int test)
 			std::cerr << "------- " << FUNC << " -------" << std::endl;
 			KO = true;
 		}
-		std::cerr << "Test " << test << ": expected " << buf2 << " , bytes: " << b2;
-		std::cerr << " got " << buf1 << " , bytes: " << b1 << std::endl;
+		std::cerr << "Test " << test << ": expected '" << buf2 << "' , bytes: " << b2;
+		std::cerr << " got '" << buf1 << "' , bytes: " << b1 << std::endl;
 	}
 
 	return (res);
@@ -63,7 +63,7 @@ int printRes(std::vector<int> v)
 {
 	int res = 0;
 
-	std::cout << std::left << std::setw(20) << "write" << " : ";
+	std::cout << std::left << std::setw(20) << FUNC << " : ";
 	for (size_t i = 0; i < v.size(); i++)
 	{
 		std::cout << i + 1 << ".";

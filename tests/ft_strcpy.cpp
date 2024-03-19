@@ -13,19 +13,22 @@ int	cmp(const char *src, int test)
 	char	dst1[100];
 	char	dst2[100];
 
+	bzero(dst1, 100);
+	bzero(dst2, 100);
+
 	char	*s1 = ft_strcpy(dst1, src);
 	char	*s2 = strcpy(dst2, src);
 
 	int res = strcmp(s1, s2) == 0;
-
 	if (!res)
 	{
+		std::cerr << s1 << " , " << s2 << std::endl;
 		if (!KO)
 		{
 			std::cerr << "------- " << FUNC << " -------" << std::endl;
 			KO = true;
 		}
-		std::cerr << "Test " << test << ": expected " << s2 << " got " << s1 << std::endl;
+		std::cerr << "Test " << test << ": expected '" << s2 << "' got '" << s1 << "'" << std::endl;
 	}
 
 	return (res);
@@ -35,7 +38,7 @@ int printRes(std::vector<int> v)
 {
 	int res = 0;
 
-	std::cout << std::left << std::setw(20) << "strcpy" << " : ";
+	std::cout << std::left << std::setw(20) << FUNC << " : ";
 	for (size_t i = 0; i < v.size(); i++)
 	{
 		std::cout << i + 1 << ".";

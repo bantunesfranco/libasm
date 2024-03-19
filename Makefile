@@ -8,7 +8,7 @@ END=\033[0m
 
 NAME = libasm.a 
 ASSEMBLER = nasm
-FLAGS = -f elf64
+FLAGS = -f elf64 -g
 DIR_S = srcs
 DIR_O = obj
 
@@ -36,11 +36,5 @@ fclean: clean
 	@rm -rf ${NAME}
 
 re: fclean all
-
-test: all
-	@echo "${YELLOW}Testing${END}"
-	@gcc -Wall -Wextra -Werror main.c libasm.a -o test
-	@./test
-	@rm -rf test
 
 .PHONY: all clean fclean re bonus test 

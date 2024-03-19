@@ -23,7 +23,7 @@ for file in *.cpp; do
 		filename="${filename#ft_}"
 
 		# Compile the C++ file with libasm.a
-		c++ "$file" $libasm -o "$filename"
+		c++ "$file" $libasm -lc -o "$filename"
 
 		# Run the compiled file
 		./"$filename" 2>> "$output"
