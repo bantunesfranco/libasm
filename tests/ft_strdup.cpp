@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstring>
+#include <stdlib.h>
 #include <vector>
 
 #define FUNC "strdup"
@@ -25,6 +26,8 @@ int	cmp(const char *src, int test)
 		std::cerr << "Test " << test << ": expected '" << s2 << "' got '" << s1 << "'" << std::endl;
 	}
 
+	free(s1);
+	free(s2);
 	return (res);
 }
 
