@@ -1,7 +1,10 @@
 #!/bin/bash
 
-output="output.txt"
-libasm="../libasm.a"
+flags="-Wall -Wextra -Werror -fno-pie -no-pie"
+includes="-I tests/ft_asm.h"
+
+output="results.txt"
+libasm="libasm.a"
 error=0
 
 if [[ ! -f "$libasm" ]]; then
@@ -16,14 +19,14 @@ fi
 touch "$output"
 
 # Compile each C++ file with libasm.a
-for file in *.cpp; do
+for file in tests/*.cpp; do
 	if [[ -f "$file" ]]; then
 		# Extract the filename without extension and prefix
 		filename="${file%.*}"
-		filename="${filename#ft_}"
+		filename="${filename#tests/ft_}"
 
 		# Compile the C++ file with libasm.a
-		c++ "$file" $libasm -lc -o "$filename"
+		c++ $flags "$file" $includes -L. -lasm -o "$filename"
 
 		# Run the compiled file
 		./"$filename" 2>> "$output"

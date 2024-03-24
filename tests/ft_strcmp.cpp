@@ -8,12 +8,21 @@
 extern "C" int ft_strcmp(const char *s1, const char *s2);
 bool KO = false;
 
+int normalize(int c)
+{
+	if (c < 0)
+		return -1;
+	else if (c > 0)
+		return 1;
+	return c;
+}
+
 int	cmp(const char *s1, const char *s2, int test)
 {
 	int	cmp1 = ft_strcmp(s1, s2);
 	int	cmp2 = strcmp(s1, s2);
 
-	int res = cmp1 == cmp2;
+	int res = normalize(cmp1) == normalize(cmp2);
 
 	if (!res)
 	{

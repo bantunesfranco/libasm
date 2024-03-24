@@ -6,9 +6,14 @@ MAGENTA=\033[1;35m
 CYAN=\033[1;36m
 END=\033[0m
 
-NAME = libasm.a 
-ASSEMBLER = nasm
-FLAGS = -f elf64 -g
+NAME = libasm.a
+
+ASM = nasm
+ASM_FLAGS = -f elf64 -g
+
+AR = ar
+AR_FLAGS = rcs
+
 DIR_S = srcs
 DIR_O = obj
 
@@ -17,13 +22,13 @@ OBJS = $(patsubst $(DIR_S)/%.s,$(DIR_O)/%.o,$(SRCS))
 
 ${NAME}: ${OBJS} 
 	@echo "${MAGENTA}Creating $@${END}"
-	@ar rcs ${NAME} ${OBJS}
+	@$(AR) $(AR_FLAGS) $@ $^
 	@echo "${GREEN}Done!${END}"
 
 $(DIR_O)/%.o: $(DIR_S)/%.s
 	@mkdir -p $(dir $@)
 	@echo "${BLUE}Compiling ${notdir $<}${END}"
-	@$(ASSEMBLER) $(FLAGS) $< -o $@
+	@$(ASM) $(ASM_FLAGS) $< -o $@
 
 all: ${NAME}
 
@@ -36,5 +41,9 @@ fclean: clean
 	@rm -rf ${NAME}
 
 re: fclean all
+
+test: all
+	@echo "${CYAN}Testing${END}"
+	@./tester.sh
 
 .PHONY: all clean fclean re bonus test 

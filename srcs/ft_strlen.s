@@ -3,13 +3,13 @@ section .text
 
 bits 64
 ft_strlen:
-	xor rax, rax
+	xor rax, rax						; i = 0
 
 	.loop:
-		cmp byte [rdi + rax], byte 0
-		je .end
-		inc rax
-		jmp .loop
+		cmp byte [rdi + rax], byte 0	; if (str[i] == '\0')
+		je .end							; break
+		inc rax							; i++
+		jmp .loop						; while (str[i])
 
 	.end:
-		ret
+		ret								; return i
