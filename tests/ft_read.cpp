@@ -42,23 +42,26 @@ int	cmp(const char *s1, int test, int mode)
 	char *err1;
 	char *err2;
 
-	lseek(fd, 0, SEEK_SET);
-	ssize_t b1 = ft_read(fd, buf1, len);
-	if (mode && errno)
-		err1 = strerror(errno);
-
-	lseek(fd, 0, SEEK_SET);
-	ssize_t b2 = read(fd, buf2, len);
-	if (mode && errno)
-		err2 = strerror(errno);
-
-	if (b1 == -1 || b2 == -1)
+	if (mode == 0)
 	{
-		std::cerr << "Failed to read from file." << std::endl;
+		lseek(fd, 0, SEEK_SET);
+		ssize_t b1 = ft_read(fd, buf1, len);
+		if (mode && errno)
+			err1 = strerror(errno);
+
+		lseek(fd, 0, SEEK_SET);
+		ssize_t b2 = read(fd, buf2, len);
+		if (mode && errno)
+			err2 = strerror(errno);
+
+		if (b1 == -1 || b2 == -1)
+		{
+			std::cerr << "Failed to read from file." << std::endl;
+			close(fd);
+			return 1;
+		}
 		close(fd);
-		return 1;
 	}
-	close(fd);
 
 	int res = (b1 == b2) && (strcmp(buf1, buf2) == 0);
 	if (mode)

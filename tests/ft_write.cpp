@@ -53,13 +53,16 @@ int	cmp(const char *s1, int test, int mode)
 	bzero(buf1, len + 1);
 	bzero(buf2, len + 1);
 
-	lseek(fd, 0, SEEK_SET);
-	if (read(fd, buf1, len) == -1 || read(fd, buf2, len) == -1)
+	if (mode == 0)
 	{
-		std::cerr << "Failed to read from file." << std::endl;
-		return 1;
+		lseek(fd, 0, SEEK_SET);
+		if (read(fd, buf1, len) == -1 || read(fd, buf2, len) == -1)
+		{
+			std::cerr << "Failed to read from file." << std::endl;
+			return 1;
+		}
+		close(fd);
 	}
-	close(fd);
 
 	int res = (b1 == b2) && (strcmp(buf1, buf2) == 0);
 	if (mode)
