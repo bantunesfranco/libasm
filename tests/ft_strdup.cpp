@@ -5,7 +5,7 @@
 #include <vector>
 #include "libasm.h"
 
-#define FUNC "strdup"
+#define FUNC "ft_strdup"
 
 bool KO = false;
 

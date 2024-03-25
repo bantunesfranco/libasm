@@ -4,7 +4,7 @@
 #include <vector>
 #include "libasm.h"
 
-#define FUNC "strcpy"
+#define FUNC "ft_strcpy"
 
 bool KO = false;
 

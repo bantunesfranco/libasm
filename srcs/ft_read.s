@@ -4,9 +4,6 @@ section .text
 
 bits 64
 ft_read:
-	
-	; cmp rdx, 0					; check if 3rd arg is 0
-	; jl .is_error				; if 3rd arg < 0, goto is_error
 
 	xor rax, rax				; set rax to 0 (read syscall)
 	syscall						; write() syscall

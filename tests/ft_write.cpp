@@ -6,13 +6,13 @@
 #include <fcntl.h>
 #include "libasm.h"
 
-#define FUNC "write"
+#define FUNC "ft_write"
 
 bool KO = false;
 
 int	cmp(const char *s1, int test, int mode)
 {
-	int	len = strlen(s1);
+	int	len = s1 == NULL ? 1 : strlen(s1);
 	int	fd;
 
 	if (mode == 1)
@@ -132,6 +132,10 @@ int main(void)
 	v.push_back(res);
 
 	// Test 7
+	res = cmp(NULL, i++, 1);
+	v.push_back(res);
+
+	// Test 8
 	res = cmp("12", i++, 1);
 	v.push_back(res);
 

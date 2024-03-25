@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include "libasm.h"
 
-#define FUNC "read"
+#define FUNC "ft_read"
 
 bool KO = false;
 

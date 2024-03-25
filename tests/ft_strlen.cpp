@@ -4,7 +4,7 @@
 #include <vector>
 #include "libasm.h"
 
-#define FUNC "strlen"
+#define FUNC "ft_strlen"
 
 bool KO = false;
 

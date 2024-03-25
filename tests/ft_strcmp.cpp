@@ -4,7 +4,7 @@
 #include <vector>
 #include "libasm.h"
 
-#define FUNC "strcmp"
+#define FUNC "ft_strcmp"
 
 bool KO = false;
 
