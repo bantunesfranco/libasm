@@ -41,16 +41,18 @@ int	cmp(const char *s1, int test, int mode)
 
 	char *err1;
 	char *err2;
+	ssize_t b1 = 0;
+	ssize_t b2 = 0;
 
 	if (mode == 0)
 	{
 		lseek(fd, 0, SEEK_SET);
-		ssize_t b1 = ft_read(fd, buf1, len);
+		b1 = ft_read(fd, buf1, len);
 		if (mode && errno)
 			err1 = strerror(errno);
 
 		lseek(fd, 0, SEEK_SET);
-		ssize_t b2 = read(fd, buf2, len);
+		b2 = read(fd, buf2, len);
 		if (mode && errno)
 			err2 = strerror(errno);
 
