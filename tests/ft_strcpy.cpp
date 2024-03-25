@@ -2,10 +2,10 @@
 #include <iomanip>
 #include <cstring>
 #include <vector>
+#include "libasm.h"
 
 #define FUNC "strcpy"
 
-extern "C" char *ft_strcpy(const char *s1, const char *s2);
 bool KO = false;
 
 int	cmp(const char *src, int test)

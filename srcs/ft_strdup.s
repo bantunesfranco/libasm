@@ -2,6 +2,7 @@ section .text
 	global ft_strdup
 	extern ft_strcpy
 	extern ft_strlen
+section .data
 	extern malloc
 	extern __errno_location
 

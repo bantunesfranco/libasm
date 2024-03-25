@@ -4,10 +4,10 @@
 #include <vector>
 #include <unistd.h>
 #include <fcntl.h>
+#include "libasm.h"
 
 #define FUNC "read"
 
-extern "C" ssize_t ft_read(int fd, void *s1, size_t len);
 bool KO = false;
 
 int	cmp(const char *s1, int test)

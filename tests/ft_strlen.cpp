@@ -2,10 +2,10 @@
 #include <iomanip>
 #include <cstring>
 #include <vector>
+#include "libasm.h"
 
 #define FUNC "strlen"
 
-extern "C" size_t ft_strlen(const char *s);
 bool KO = false;
 
 int	cmp(const char *s1, const char *s2, int test)

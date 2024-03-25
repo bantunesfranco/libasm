@@ -9,7 +9,7 @@ END=\033[0m
 NAME = libasm.a
 
 ASM = nasm
-ASM_FLAGS = -f elf64 -g
+ASM_FLAGS = -f elf64 -F dwarf -g
 
 AR = ar
 AR_FLAGS = rcs

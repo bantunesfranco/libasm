@@ -3,10 +3,10 @@
 #include <cstring>
 #include <stdlib.h>
 #include <vector>
+#include "libasm.h"
 
 #define FUNC "strdup"
 
-extern "C" char *ft_strdup(const char *s1);
 bool KO = false;
 
 int	cmp(const char *src, int test)

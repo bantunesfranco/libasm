@@ -2,10 +2,10 @@
 #include <iomanip>
 #include <cstring>
 #include <vector>
+#include "libasm.h"
 
 #define FUNC "strcmp"
 
-extern "C" int ft_strcmp(const char *s1, const char *s2);
 bool KO = false;
 
 int normalize(int c)
