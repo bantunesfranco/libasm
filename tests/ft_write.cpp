@@ -10,20 +10,38 @@
 
 bool KO = false;
 
-int	cmp(const char *s1, int test)
+int	cmp(const char *s1, int test, int mode)
 {
-	int len = strlen(s1);
-	int fd = open("out.txt", O_RDWR | O_CREAT);
-	if (fd == -1)
+	int	len = strlen(s1);
+	int	fd;
+
+	if (mode == 1)
 	{
-		std::cerr << "Failed to open file for writing." << std::endl;
-		return 1;
+		fd = -1;
 	}
+	else
+	{
+		fd = open("out.txt", O_RDWR | O_CREAT);
+		if (fd == -1)
+		{
+			std::cerr << "Failed to open file for writing." << std::endl;
+			return 1;
+		}
+	}
+
 	unlink("out.txt");
 
-	ssize_t	b1 = ft_write(fd, s1, len);
-	ssize_t	b2 = write(fd, s1, len);
+	char *err1;
+	char *err2;
 
+	ssize_t	b1 = ft_write(fd, s1, len);
+	if (mode && errno)
+		err1 = strerror(errno);
+
+	ssize_t	b2 = write(fd, s1, len);
+	if (mode && errno)
+		err2 = strerror(errno);
+	
 	if (b1 == -1 || b2 == -1)
 	{
 		std::cerr << "Failed to write to file." << std::endl;
@@ -44,6 +62,8 @@ int	cmp(const char *s1, int test)
 	close(fd);
 
 	int res = (b1 == b2) && (strcmp(buf1, buf2) == 0);
+	if (mode)
+		res += strcmp(err1, err2) == 0;
 
 	if (!res)
 	{
@@ -87,31 +107,31 @@ int main(void)
 	int					i = 1;
 
 	// Test 1
-	res = cmp("", i++);
+	res = cmp("", i++, 0);
 	v.push_back(res);
 
 	// Test 2
-	res = cmp("a", i++);
+	res = cmp("a", i++, 0);
 	v.push_back(res);
 
 	// Test 3
-	res = cmp("ab", i++);
+	res = cmp("ab", i++, 0);
 	v.push_back(res);
 
 	// Test 4
-	res = cmp("lol", i++);
+	res = cmp("lol", i++, 0);
 	v.push_back(res);
 
 	// Test 5
-	res = cmp("this is a test!", i++);
+	res = cmp("this is a test!", i++, 0);
 	v.push_back(res);
 
 	// Test 6
-	res = cmp("1234", i++);
+	res = cmp("lol", i++, 0);
 	v.push_back(res);
 
 	// Test 7
-	res = cmp("12", i++);
+	res = cmp("12", i++, 1);
 	v.push_back(res);
 
 	return printRes(v);

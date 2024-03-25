@@ -11,7 +11,7 @@ bool KO = false;
 
 int	cmp(const char *src, int test)
 {
-	char	*s1 = ft_strdup(src);
+		char	*s1 = ft_strdup(src);
 	char	*s2 = strdup(src);
 
 	int res = strcmp(s1, s2) == 0;

@@ -2,7 +2,6 @@ section .text
 	global ft_strdup
 	extern ft_strcpy
 	extern ft_strlen
-section .data
 	extern malloc
 	extern __errno_location
 
@@ -16,8 +15,8 @@ ft_strdup:
 	mov rdi, rax				; set 1st arg to len
 	call malloc					; ptr = malloc(len)
 
-	test rax, rax				; if ptr == NULL
-	jnz .error					; goto error
+	cmp rax, 0					; if ptr == NULL
+	jz .error					; goto error
 
 	mov rdi, rax				; set 1st arg to ptr
 	pop rsi						; set 2nd arg to string from stack

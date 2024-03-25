@@ -10,7 +10,7 @@
 
 bool KO = false;
 
-int	cmp(const char *s1, int test)
+int	cmp(const char *s1, int test, int mode)
 {
 	int len = strlen(s1);
 	int fd = open("out.txt", O_RDWR | O_CREAT);
@@ -33,10 +33,25 @@ int	cmp(const char *s1, int test)
 	bzero(buf1, len + 1);
 	bzero(buf2, len + 1);
 
+	if (mode)
+	{
+		close(fd);
+		fd = -1;
+	}
+
+	char *err1;
+	char *err2;
+
 	lseek(fd, 0, SEEK_SET);
 	ssize_t b1 = ft_read(fd, buf1, len);
+	if (mode && errno)
+		err1 = strerror(errno);
+
 	lseek(fd, 0, SEEK_SET);
 	ssize_t b2 = read(fd, buf2, len);
+	if (mode && errno)
+		err2 = strerror(errno);
+
 	if (b1 == -1 || b2 == -1)
 	{
 		std::cerr << "Failed to read from file." << std::endl;
@@ -46,6 +61,8 @@ int	cmp(const char *s1, int test)
 	close(fd);
 
 	int res = (b1 == b2) && (strcmp(buf1, buf2) == 0);
+	if (mode)
+		res += strcmp(err1, err2) == 0;
 
 	if (!res)
 	{
@@ -89,31 +106,31 @@ int main(void)
 	int					i = 1;
 
 	// Test 1
-	res = cmp("", i++);
+	res = cmp("", i++, 0);
 	v.push_back(res);
 
 	// Test 2
-	res = cmp("a", i++);
+	res = cmp("a", i++, 0);
 	v.push_back(res);
 
 	// Test 3
-	res = cmp("ab", i++);
+	res = cmp("ab", i++, 0);
 	v.push_back(res);
 
 	// Test 4
-	res = cmp("lol", i++);
+	res = cmp("lol", i++, 0);
 	v.push_back(res);
 
 	// Test 5
-	res = cmp("this is a test!", i++);
+	res = cmp("this is a test!", i++, 0);
 	v.push_back(res);
 
 	// Test 6
-	res = cmp("1234", i++);
+	res = cmp("1234", i++, 0);
 	v.push_back(res);
 
 	// Test 7
-	res = cmp("12", i++);
+	res = cmp("12", i++, 1);
 	v.push_back(res);
 
 	return printRes(v);
