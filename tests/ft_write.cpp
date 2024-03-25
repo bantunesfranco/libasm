@@ -16,9 +16,7 @@ int	cmp(const char *s1, int test, int mode)
 	int	fd;
 
 	if (mode == 1)
-	{
 		fd = -1;
-	}
 	else
 	{
 		fd = open("out.txt", O_RDWR | O_CREAT);
@@ -42,10 +40,10 @@ int	cmp(const char *s1, int test, int mode)
 	if (mode && errno)
 		err2 = strerror(errno);
 	
-	if (b1 == -1 || b2 == -1)
+	if (mode == 0 && (b1 == -1 || b2 == -1))
 	{
 		std::cerr << "Failed to write to file." << std::endl;
-		return 1;
+		return 0;
 	}
 
 	char buf1[len + 1];
@@ -59,7 +57,7 @@ int	cmp(const char *s1, int test, int mode)
 		if (read(fd, buf1, len) == -1 || read(fd, buf2, len) == -1)
 		{
 			std::cerr << "Failed to read from file." << std::endl;
-			return 1;
+			return 0;
 		}
 		close(fd);
 	}

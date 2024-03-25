@@ -11,10 +11,34 @@ bool KO = false;
 
 int	cmp(const char *src, int test)
 {
-		char	*s1 = ft_strdup(src);
+	char	*s1 = ft_strdup(src);
+	char	*err1 = s1 == NULL ? strerror(errno): NULL;
 	char	*s2 = strdup(src);
+	char	*err2 = s2 == NULL ? strerror(errno): NULL;
+	int		res;
 
-	int res = strcmp(s1, s2) == 0;
+	if (err1 || err2)
+	{
+		free(s1);
+		free(s2);
+		if (err1 && err2)
+			res = strcmp(err1, err2);
+		else
+			return 0;
+	
+		if (!res)
+		{
+			if (!KO)
+			{
+				std::cerr << "------- " << FUNC << " -------" << std::endl;
+				KO = true;
+			}
+			std::cerr << "Test " << test << ": expected '" << err2 << "' got '" << err1 << "'" << std::endl;
+			return 0;
+		}
+	}
+
+	res = strcmp(s1, s2) == 0;
 
 	if (!res)
 	{
