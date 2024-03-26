@@ -2,7 +2,7 @@ section .text
 	global ft_strcmp
 
 bits 64
-ft_strcmp:
+ft_strcmp:					; int ft_strcmp(const char *s1, const char *s2)
 	xor rax, rax			; res = 0
 
 	.loop:

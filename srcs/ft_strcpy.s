@@ -2,7 +2,7 @@ section .text
 	global ft_strcpy
 
 bits 64
-ft_strcpy:
+ft_strcpy:						; char *ft_strcpy(char *dst, const char *src)
 	xor rcx, rcx				; i = 0 
 
 	.loop:

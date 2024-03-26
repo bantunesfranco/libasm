@@ -2,7 +2,7 @@ section .text
 	global ft_strlen
 
 bits 64
-ft_strlen:
+ft_strlen:								; size_t ft_strlen(char *str)
 	xor rax, rax						; i = 0
 
 	.loop:

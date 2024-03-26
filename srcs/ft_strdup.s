@@ -3,10 +3,9 @@ section .text
 	extern ft_strcpy
 	extern ft_strlen
 	extern malloc
-	extern __errno_location
 
 bits 64
-ft_strdup:
+ft_strdup:						; char *ft_strdup(const char *str)
 
 	cmp rdi, 0					; if str == NULL
 	jz .error					; goto error

@@ -3,19 +3,13 @@ section .text
 	extern __errno_location
 
 bits 64
-ft_write:
+ft_write:						; ssize_t ft_write(int fd, const void *buf, size_t count)
 
 	mov rax, 1					; set rax to 1 (write syscall) 
 	syscall						; write()
 	cmp rax, 0					; if write() < 0
 	jl .set_errno				; goto .set_errno
-	ret
-
-	.null_buff:
-		mov rdi, 22				; set rax to 22 (EINVAL)
-		call __errno_location	; error = &errno (gets address of errno)
-		mov [rax], rdi			; *error = errno (sets errno value to address of errno)
-		jmp .is_error
+	ret							; return
 
 	.set_errno:
 		mov rdi, rax			; save rax in rdi

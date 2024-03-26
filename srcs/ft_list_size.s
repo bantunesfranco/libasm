@@ -2,17 +2,17 @@ section .text
 	global ft_list_size
 
 bits 64
-ft_list_size:
-	xor rax, rax
-	push rdi
-	mov rdi, [rdi]
+ft_list_size:					; int ft_list_size(t_list **begin_list);
+	xor rax, rax				; len = 0
+	push rdi					; save rdi
+	mov rdi, [rdi]				; head = *begin_list
 
 	.loop:
-		cmp rdi, 0
-		je .end
-		inc rax
-		mov rdi, [rdi + 8]
-		jmp .loop
+		cmp rdi, 0				; if (head == NULL)
+		je .end					; goto end
+		inc rax					; len++
+		mov rdi, [rdi + 8]		; head = head->next
+		jmp .loop				; while (head != NULL)
 
 	.end:
-		ret
+		ret						; return len

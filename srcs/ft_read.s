@@ -3,7 +3,7 @@ section .text
 	extern __errno_location
 
 bits 64
-ft_read:
+ft_read:						; int ft_read(int fd, void *buf, size_t count)
 
 	xor rax, rax				; set rax to 0 (read syscall)
 	syscall						; write() syscall
