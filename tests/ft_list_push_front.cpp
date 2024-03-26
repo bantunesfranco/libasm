@@ -73,7 +73,8 @@ t_list	**gen_list(int start, int end)
 
 	for (int i = start; i <= end; i++)
 	{
-		node->next = ft_list_new((void *)ft_atoi(i));
+		const char *data = std::to_string(i).c_str();
+		node->next = ft_list_new((void *)strdup(data));
 		node = node->next;
 	}
 
@@ -87,7 +88,7 @@ int main(void)
 	int					i = 1;
 
 	t_list	**list = gen_list(1, 5);
-	t_list	**list2 = ft_list_new((void *)&i);
+	t_list	*list2 = ft_list_new((void *)strdup("1"));
 	t_list	**list3 = NULL;
 
 	// Test 1
@@ -99,11 +100,11 @@ int main(void)
 	v.push_back(res);
 
 	// Test 3
-	res = cmp(list2, strdup("0"), "0, 1", i++);
+	res = cmp(&list2, strdup("0"), "0, 1", i++);
 	v.push_back(res);
 
 	// Test 4
-	res = cmp(list2, strdup("-1"), "-1, 0, 1", i++);
+	res = cmp(&list2, strdup("-1"), "-1, 0, 1", i++);
 	v.push_back(res);
 
 	// Test 5
@@ -115,7 +116,7 @@ int main(void)
 	v.push_back(res);
 
 	ft_list_clear(list, free);
-	ft_list_clear(list2, free);
+	ft_list_clear(&list2, free);
 	ft_list_clear(list3, free);
 
 	return printRes(v);

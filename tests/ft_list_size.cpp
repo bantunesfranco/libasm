@@ -9,28 +9,10 @@
 
 bool KO = false;
 
-std::string get_lst_str(t_list **lst)
+int	cmp(t_list **list, int size, int test)
 {
-	std::string str;
-	t_list *head = *lst;
-
-	while (head)
-	{
-		str += std::string((char *)head->data);
-		if (head->next)
-			str += " ";
-		head = head->next;
-	}
-
-	return str;
-}
-
-int	cmp(t_list **list, void *data, char *expected, int test)
-{
-	ft_list_push_front(list, data);
-
-	std::string lst_str = get_lst_str(list);
-	int res = std::string(expected) == lst_str;
+	int len = ft_list_size(*list);
+	int res = len == size;
 
 	if (!res)
 	{
@@ -39,7 +21,7 @@ int	cmp(t_list **list, void *data, char *expected, int test)
 			std::cerr << "------- " << FUNC << " -------" << std::endl;
 			KO = true;
 		}
-		std::cerr << "Test " << test << ": expected '" << expected << " got '" << lst_str << "'" << std::endl;
+		std::cerr << "Test " << test << ": expected '" << size << " got '" << len << "'" << std::endl;
 	}
 
 	return (res);
@@ -73,7 +55,8 @@ t_list	**gen_list(int start, int end)
 
 	for (int i = start; i <= end; i++)
 	{
-		node->next = ft_list_new((void *)ft_atoi(i));
+		const char *data = std::to_string(i).c_str();
+		node->next = ft_list_new((void *)strdup(data));
 		node = node->next;
 	}
 
@@ -87,16 +70,32 @@ int main(void)
 	int					i = 1;
 
 	t_list	**list = gen_list(1, 5);
+	t_list	**list2 = NULL;
 
 	// Test 1
-	res = cmp(list, strdup("0"), "0 1 2 3 4 5", i++);
+	res = cmp(list, 5, i++);
 	v.push_back(res);
 
 	// Test 2
-	res = cmp(list, strdup("-1"), "-1 0 1 2 3 4 5", i++);
+	t_list	*node = ft_list_new((void *)strdup("0"));
+	ft_list_push_front(list, node);
+	res = cmp(list, 6, i++);
+	v.push_back(res);
+
+	// Test 3
+	node = ft_list_new((void *)strdup("0"));
+	ft_list_push_front(list2, node);
+	res = cmp(list2, 1, i++);
+	v.push_back(res);
+
+	// Test 4
+	node = ft_list_new((void *)strdup("-1"));
+	ft_list_push_front(list2, node);
+	res = cmp(list2, 2, i++);
 	v.push_back(res);
 
 	ft_list_clear(list, free);
+	ft_list_clear(list2, free);
 
 	return printRes(v);
 }

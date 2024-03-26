@@ -8,6 +8,9 @@ section .text
 bits 64
 ft_strdup:
 
+	cmp rdi, 0					; if str == NULL
+	jz .error					; goto error
+
 	push rdi					; save string in stack
 	call ft_strlen				; len = ft_strlen(string)
 	inc rax						; len++ for null terminator
@@ -25,11 +28,5 @@ ft_strdup:
 	ret							; return newStr
 
 	.error:
-		mov rdi, rax			; save return value in rdi
-		neg rdi					; negate rdi for positive value
-
-		call __errno_location	; error = &errno (gets address of errno)
-		mov [rax], rdi			; *error = errno (sets errno value to address of errno)
-
-		mov rax, -1				; ret = 1
+		xor rax, rax			; ret = NULL
 		ret						; return ret
