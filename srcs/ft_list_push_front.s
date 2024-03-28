@@ -15,7 +15,7 @@ ft_list_push_front: 			; void ft_list_push_front(t_list **begin_list, void *data
 
 	pop rdi						; restore begin_list
 	mov rsi, [rdi]				; tmp = *begin_list
-	mov qword [rax + 8], rsi	; node->next = tmp
+	mov qword [rax + 8], qword rsi	; node->next = tmp
 	mov qword [rdi] , rax		; *begin_list = node
 
 	xor rax, rax				; clear rax
