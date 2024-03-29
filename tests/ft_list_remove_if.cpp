@@ -1,33 +1,34 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <iostream>
 #include "libasm.h"
 
 
-void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(const char *, const char *), void (*free_fct)(void *))
-{
-	t_list	*node = *begin_list;
-	t_list	*prev = NULL;
+// void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(const char *, const char *), void (*free_fct)(void *))
+// {
+// 	t_list	*node = *begin_list;
+// 	t_list	*prev = NULL;
 
-	while (node)
-	{
-		if (cmp((const char*)node->data, (const char*)data_ref) == 0)
-		{
-			if (prev)
-				prev->next = node->next;
-			else
-				*begin_list = node->next;
-			free_fct(node->data);
-			free(node);
-			node = prev ? prev->next : *begin_list;
-		}
-		else
-		{
-			prev = node;
-			node = node->next;
-		}
-	}
-}
+// 	while (node)
+// 	{
+// 		if (cmp((const char*)node->data, (const char*)data_ref) == 0)
+// 		{
+// 			if (prev)
+// 				prev->next = node->next;
+// 			else
+// 				*begin_list = node->next;
+// 			free_fct(node->data);
+// 			free(node);
+// 			node = prev ? prev->next : *begin_list;
+// 		}
+// 		else
+// 		{
+// 			prev = node;
+// 			node = node->next;
+// 		}
+// 	}
+// }
 
 t_list **gen_list(int start, int end)
 {
@@ -53,7 +54,7 @@ t_list **gen_list(int start, int end)
 int main(void)
 {
 	t_list	**list = gen_list(1, 5);
-	ft_list_remove_if(list, (void*)"c", strcmp, free);
+	ft_list_remove_if(list, (void*)"a", strcmp, free);
 
 	t_list	*node = *list;
 	while (node)

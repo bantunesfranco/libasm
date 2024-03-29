@@ -23,7 +23,7 @@ extern "C" int		ft_atoi(const char *s);
 extern "C" void		ft_list_push_front(t_list **begin_list, void *data);
 extern "C" int		ft_list_size(t_list *begin_list);
 extern "C" void		ft_list_sort(t_list **begin_list, int (*cmp)());
-extern "C" void		ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+extern "C" void		ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(const char*, const char*), void (*free_fct)(void *));
 
 // Extra
 extern "C" t_list	*ft_list_new(void *data);
