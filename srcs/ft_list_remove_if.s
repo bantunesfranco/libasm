@@ -14,12 +14,14 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		cmp r8, 0			; if (head == NULL)
 		je .end				; goto end
 
+		mov rdi, [r8]		; tmp = head->data
 		call rdx			; res = cmp(head->data, data)
 		cmp rax, 0			; if (res == 0)
 		je .remove			; goto remove
 
-		mov r9, r8
-		mov r8, [r8 + 8]
+		mov r9, r8			; prev = head
+		mov r8, [r8 + 8]	; head = head->next
+		jmp .loop			; goto loop
 
 	.remove:
 		cmp r9, 0			; if (prev == NULL)
@@ -27,8 +29,8 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		jne .remove_mid		; else goto remove_mid
 
 	.remove_head:
-		mov rdi, [r8]		; tmp = head->data
-		call r10			; f(tmp)
+		; mov rdi, [r8]		; tmp = head->data
+		call rcx			; f(tmp)
 
 		mov rdi, r8			; tmp = head
 		mov r8, [r8 + 8]	; head = head->next
@@ -41,8 +43,8 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		jmp .loop			; goto loop
 
 	.remove_mid:
-		mov rdi, [r8]		; tmp = head->data
-		call r10			; f(tmp)
+		; mov rdi, [r8]		; tmp = head->data
+		call rcx			; f(tmp)
 
 		mov rdi, r8			; tmp = head
 		mov r8, [r8 + 8]	; head = head->next

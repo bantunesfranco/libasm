@@ -54,8 +54,12 @@ t_list **gen_list(int start, int end)
 int main(void)
 {
 	t_list	**list = gen_list(1, 5);
-	ft_list_remove_if(list, (void*)"a", strcmp, free);
+	t_list	*lol = ft_list_new((void *)strdup("z"));
+	// lol->next = ft_list_new((void *)strdup("a"));
+	// ft_list_remove_if(list, (void*)"z", strcmp, free);
+	ft_list_remove_if(&lol, (void*)"z", strcmp, free);
 
+	*list = lol;
 	t_list	*node = *list;
 	while (node)
 	{
