@@ -55,7 +55,7 @@ int main(void)
 {
 	t_list	**list = gen_list(1, 5);
 	t_list	*lol = ft_list_new((void *)strdup("z"));
-	// lol->next = ft_list_new((void *)strdup("a"));
+	lol->next = ft_list_new((void *)strdup("a"));
 	// ft_list_remove_if(list, (void*)"z", strcmp, free);
 	ft_list_remove_if(&lol, (void*)"z", strcmp, free);
 

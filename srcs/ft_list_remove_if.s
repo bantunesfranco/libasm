@@ -5,7 +5,6 @@ section .text
 bits 64
 ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, int (*cmp)(), void (*f)(void *));
 
-
 	mov r8, [rdi]			; head = *begin_list
 	push rdi
 	xor r9, r9				; prev = NULL
@@ -14,6 +13,11 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		cmp r8, 0			; if (head == NULL)
 		je .end				; goto end
 
+		push rdx			; save cmp ptr
+		push rcx			; save f ptr
+		push rsi			; save data ptr
+		push r8				; save head ptr
+
 		mov rdi, [r8]		; tmp = head->data
 		call rdx			; res = cmp(head->data, data)
 		cmp rax, 0			; if (res == 0)
@@ -21,6 +25,11 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 
 		mov r9, r8			; prev = head
 		mov r8, [r8 + 8]	; head = head->next
+
+		pop rsi				; get data ptr
+		pop rcx				; get f ptr
+		pop rdx				; get cmp ptr
+
 		jmp .loop			; goto loop
 
 	.remove:
@@ -29,12 +38,17 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		jne .remove_mid		; else goto remove_mid
 
 	.remove_head:
-		; mov rdi, [r8]		; tmp = head->data
+		pop r8				; get head ptr
+		pop rsi				; get data ptr
+		pop rcx				; get f ptr
+		pop rdx				; get cmp ptr
+
+		mov rdi, [r8]		; tmp = head->data
 		call rcx			; f(tmp)
 
 		mov rdi, r8			; tmp = head
 		mov r8, [r8 + 8]	; head = head->next
-		call free			; free(tmp)
+		; call free			; free(tmp)
 
 		pop rdi				; get begin_list ptr
 		mov [rdi], r8		; *begin_list = head

@@ -4,14 +4,14 @@
 #include <vector>
 #include "libasm.h"
 
-#define FUNC "atoi"
+#define FUNC "atoi_base"
 
 bool KO = false;
 
-int	cmp(const char *s, int test)
+int	cmp(const char *s, const char *base, int mode, int test)
 {
-	int	n1 = ft_atoi(s);
-	int	n2 = atoi(s);
+	int	n1 = ft_atoi_base(s, base);
+	int	n2 = mode == 1 ? 0 : strtol(s, NULL, strlen(base));
 
 	int res = n1 == n2;
 
@@ -56,54 +56,58 @@ int main(void)
 	int					i = 1;
 
 	// Test 1
-	res = cmp("1", i++);
+	res = cmp("1", "0123456789", 0, i++);
 	v.push_back(res);
 
 	// Test 2
-	res = cmp("1234", i++);
+	res = cmp("1234", "	0123456789", 1, i++);
 	v.push_back(res);
 
 	// Test 3
-	res = cmp("-1", i++);
+	res = cmp("-1", "0123456789", 0, i++);
 	v.push_back(res);
 
 	// Test 4
-	res = cmp("-1", i++);
+	res = cmp("+1", "0123456789", 0, i++);
 	v.push_back(res);
-
 	// Test 5
-	res = cmp("+1", i++);
+	res = cmp("12", "\b \r01234567", 1, i++);
 	v.push_back(res);
 
 	// Test 6
-	res = cmp("++1", i++);
+	res = cmp("-12", "01234567", 0, i++);
 	v.push_back(res);
 
 	// Test 7
-	res = cmp("--1", i++);
+	res = cmp("+12", "01234567", 0, i++);
 	v.push_back(res);
 
 	// Test 8
-	res = cmp("+-1", i++);
+	res = cmp("FF", "0123456789ABCDEF", 0, i++);
 	v.push_back(res);
 
 	// Test 9
-	res = cmp("-+1", i++);
+	res = cmp("-FF", "0123456789ABCDEF", 0, i++);
 	v.push_back(res);
 
 	// Test 10
-	res = cmp("--+-1", i++);
+	res = cmp("+FF", "0123456789ABCDEF", 0, i++);
+	v.push_back(res);
 
 	// Test 11
-	res = cmp("1a", i++);
+	res = cmp("ABC", "0123456789ABCDEF", 0, i++);
 	v.push_back(res);
 
 	// Test 12
-	res = cmp("a1", i++);
+	res = cmp("ABC", "01223456789ABCDEF", 1, i++);
 	v.push_back(res);
 
 	// Test 13
-	res = cmp("1 1", i++);
+	res = cmp("123", "01223456789", 1, i++);
+	v.push_back(res);
+
+	// Test 14
+	res = cmp("123", "012234567", 1, i++);
 	v.push_back(res);
 
 	return printRes(v);

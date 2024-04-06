@@ -19,7 +19,7 @@ extern "C" char		*ft_strcpy(char *dest, const char *src);
 extern "C" char		*ft_strdup(const char *s1);
 
 // Bonus
-extern "C" int		ft_atoi(const char *s);
+extern "C" int		ft_atoi_base(const char *str, const char *base);
 extern "C" void		ft_list_push_front(t_list **begin_list, void *data);
 extern "C" int		ft_list_size(t_list *begin_list);
 extern "C" void		ft_list_sort(t_list **begin_list, int (*cmp)());
