@@ -30,41 +30,42 @@
 // 	}
 // }
 
-t_list **gen_list(int start, int end)
-{
-	t_list **list = (t_list**)calloc(1, sizeof(t_list*));
-	*list = ft_list_new((void *)strdup("a"));
-	t_list *head = *list;
-	char	arr[2] = "a";
+// t_list **gen_list(int start, int end)
+// {
+// 	t_list **list = (t_list**)calloc(1, sizeof(t_list*));
+// 	*list = ft_list_new((void *)strdup("a"));
+// 	t_list *head = *list;
+// 	char	arr[2] = "a";
 
-	for (int i = start; i <= end; i++)
-	{
-		arr[0] = (char)('a' + i);
-		t_list	*node = ft_list_new((void *)strdup(arr));
-		head->next = node;
-		head = node;
-	}
+// 	for (int i = start; i <= end; i++)
+// 	{
+// 		arr[0] = (char)('a' + i);
+// 		t_list	*node = ft_list_new((void *)strdup(arr));
+// 		head->next = node;
+// 		head = node;
+// 	}
 
-	head->next = ft_list_new((void *)strdup("c"));
-	head->next->next = ft_list_new((void *)strdup("d"));
-	head->next->next->next = ft_list_new((void *)strdup("c"));
-	return list;
-}
+// 	head->next = ft_list_new((void *)strdup("c"));
+// 	head->next->next = ft_list_new((void *)strdup("d"));
+// 	head->next->next->next = ft_list_new((void *)strdup("c"));
+// 	return list;
+// }
 
 int main(void)
 {
-	t_list	**list = gen_list(1, 5);
-	t_list	*lol = ft_list_new((void *)strdup("z"));
-	lol->next = ft_list_new((void *)strdup("a"));
+	// t_list	**list = gen_list(1, 5);
+	t_list	*node = ft_list_new((void *)strdup("a"));
+	node->next = ft_list_new((void *)strdup("z"));
 	// ft_list_remove_if(list, (void*)"z", strcmp, free);
-	ft_list_remove_if(&lol, (void*)"z", strcmp, free);
+	ft_list_remove_if(&node, (void*)"z", strcmp, free);
 
-	*list = lol;
-	t_list	*node = *list;
 	while (node)
 	{
 		printf("%s ", (char *)node->data);
+		free(node->data);
+		t_list	*tmp = node;
 		node = node->next;
+		free(tmp);
 	}
 	printf("\n");
 }

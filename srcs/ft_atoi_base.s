@@ -31,6 +31,7 @@ ft_atoi_base:								; int ft_atoi_base(char *str, char *base)
 		je .base_error
 		cmp byte [rsi+rcx], 45				; if (base[j] == '-')
 		je .base_error
+		cmp byte [rsi+rcx], 0				; if (base[j] == NULL)
 
 	.check_base_dup_loop2:
 		cmp byte [rsi+r8], 0				; while (base[j] != NULL)
@@ -78,6 +79,8 @@ ft_atoi_base:								; int ft_atoi_base(char *str, char *base)
 		cmp byte [rdi], 45					; if (str[i] == '-')
 		je .is_minus						; goto is_minus
 	
+	add rsp, 8								; restore stack
+
 	.atoi_start:
 		push r9
 		xor rax, rax						; res = 0
@@ -108,7 +111,6 @@ ft_atoi_base:								; int ft_atoi_base(char *str, char *base)
 
 	.atoi_end:
 		pop r9
-		add rsp, 8							; restore stack
 		cmp r8, 0							; if (multiplier == 0)
 		pop r8
 		pop rcx

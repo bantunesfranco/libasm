@@ -5,69 +5,76 @@ section .text
 bits 64
 ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, int (*cmp)(), void (*f)(void *));
 
-	mov r8, [rdi]			; head = *begin_list
-	push rdi
-	xor r9, r9				; prev = NULL
+	push r8
+	push r9
+	mov r8, [rdi]
+	xor r9, r9
 
 	.loop:
-		cmp r8, 0			; if (head == NULL)
-		je .end				; goto end
+		cmp r8, 0
+		je .end
 
-		push rdx			; save cmp ptr
-		push rcx			; save f ptr
-		push rsi			; save data ptr
-		push r8				; save head ptr
+		push rcx
+		push rdx
+		push rdi
 
-		mov rdi, [r8]		; tmp = head->data
-		call rdx			; res = cmp(head->data, data)
-		cmp rax, 0			; if (res == 0)
-		je .remove			; goto remove
+		mov rdi, [r8]
+		call rdx
 
-		mov r9, r8			; prev = head
-		mov r8, [r8 + 8]	; head = head->next
+		pop rdi
+		pop rdx
+		pop rcx
 
-		pop rsi				; get data ptr
-		pop rcx				; get f ptr
-		pop rdx				; get cmp ptr
+		cmp rax, 0
+		je .remove
 
-		jmp .loop			; goto loop
+		mov r9, r8
+		mov r8, [r8 + 8]
+
+		jmp .loop
 
 	.remove:
-		cmp r9, 0			; if (prev == NULL)
-		je .remove_head		; goto remove_head
-		jne .remove_mid		; else goto remove_mid
+		push rdi
+		push rcx
+		push rdx
+
+		cmp r9, 0
+		je .remove_head
+		jne .remove_middle
 
 	.remove_head:
-		pop r8				; get head ptr
-		pop rsi				; get data ptr
-		pop rcx				; get f ptr
-		pop rdx				; get cmp ptr
+		mov rax, [r8 + 8]
+		mov rdi, [r8]
+		call rcx
 
-		mov rdi, [r8]		; tmp = head->data
-		call rcx			; f(tmp)
+		mov rdi, r8
+		mov r8, rax
+		; call free
 
-		mov rdi, r8			; tmp = head
-		mov r8, [r8 + 8]	; head = head->next
-		; call free			; free(tmp)
+		pop rdx
+		pop rcx
+		pop rdi
 
-		pop rdi				; get begin_list ptr
-		mov [rdi], r8		; *begin_list = head
-		push rdi			; save begin_list ptr
+		mov [rdi], r8
+		jmp .loop
 
-		jmp .loop			; goto loop
+	.remove_middle:
+		mov rax, [r8 + 8]
+		mov rdi, [r8]
+		call rcx
 
-	.remove_mid:
-		; mov rdi, [r8]		; tmp = head->data
-		call rcx			; f(tmp)
+		mov rdi, r8
+		mov r8, rax
+		; call free
 
-		mov rdi, r8			; tmp = head
-		mov r8, [r8 + 8]	; head = head->next
-		call free			; free(tmp)
+		pop rdx
+		pop rcx
+		pop rdi
 
-		mov [r9 + 8], r8	; prev->next = head
-
-		jmp .loop			; goto loop
+		mov [r9 + 8], r8
+		jmp .loop
 
 	.end:
-		pop rdi
+		pop r8
+		pop r9
 		ret

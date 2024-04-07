@@ -110,5 +110,13 @@ int main(void)
 	res = cmp("123", "012234567", 1, i++);
 	v.push_back(res);
 
+	// Test 15
+	res = cmp("2", "01", 1, i++);
+	v.push_back(res);
+
+	// Test 16
+	res = cmp("01001111", "01", 0, i++);
+	v.push_back(res);
+
 	return printRes(v);
 }
