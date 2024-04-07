@@ -22,7 +22,7 @@ extern "C" char		*ft_strdup(const char *s1);
 extern "C" int		ft_atoi_base(const char *str, const char *base);
 extern "C" void		ft_list_push_front(t_list **begin_list, void *data);
 extern "C" int		ft_list_size(t_list *begin_list);
-extern "C" void		ft_list_sort(t_list **begin_list, int (*cmp)());
+extern "C" void		ft_list_sort(t_list **begin_list, int (*cmp)(const char*, const char*));
 extern "C" void		ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(const char*, const char*), void (*free_fct)(void *));
 
 // Extra
