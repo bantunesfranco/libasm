@@ -82,6 +82,6 @@ int main(void)
 	v.push_back(res);
 
 
-	return printRes(v);
+	std::exit(printRes(v));
 }
 

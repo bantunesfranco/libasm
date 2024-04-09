@@ -100,9 +100,9 @@ int main(void)
 	res = cmp(&list3, strdup("-1"), std::string("-1 0"), i++);
 	v.push_back(res);
 
-	// ft_list_clear(&list, free);
-	// ft_list_clear(&list2, free);
-	// ft_list_clear(list3, free);
+	ft_list_clear(list, free);
+	ft_list_clear(&list2, free);
+	ft_list_clear(&list3, free);
 
-	return printRes(v);
+	std::exit(printRes(v));
 }

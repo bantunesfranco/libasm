@@ -92,6 +92,6 @@ int main(void)
 	res = cmp("12", "1234", i++);
 	v.push_back(res);
 
-	return printRes(v);
+	std::exit(printRes(v));
 }
 

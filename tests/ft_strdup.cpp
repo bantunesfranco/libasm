@@ -102,6 +102,6 @@ int main(void)
 	res = cmp("this is a test!", i++);
 	v.push_back(res);
 
-	return printRes(v);
+	std::exit(printRes(v));
 }
 

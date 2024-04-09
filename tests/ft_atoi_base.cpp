@@ -118,5 +118,5 @@ int main(void)
 	res = cmp("01001111", "01", 0, i++);
 	v.push_back(res);
 
-	return printRes(v);
+	std::exit(printRes(v));
 }

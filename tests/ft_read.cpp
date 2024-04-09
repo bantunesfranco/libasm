@@ -138,6 +138,6 @@ int main(void)
 	res = cmp("12", i++, 1);
 	v.push_back(res);
 
-	return printRes(v);
+	std::exit(printRes(v));
 }
 

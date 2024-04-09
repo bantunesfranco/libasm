@@ -89,8 +89,9 @@ int main(void)
 	res = cmp(&list2, 1, i++);
 	v.push_back(res);
 
-	// ft_list_clear(&list, free);
-	// ft_list_clear(list2, free);
+	ft_list_clear(list, free);
+	ft_list_clear(&list2, free);
+	free(list);
 
-	return printRes(v);
+	std::exit(printRes(v));
 }

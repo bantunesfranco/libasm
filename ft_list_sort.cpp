@@ -108,5 +108,5 @@ int main(void)
 	// // ft_list_clear(list, free);
 	// v.push_back(res);
 
-	return printRes(v);
+	std::exit(printRes(v));
 }
