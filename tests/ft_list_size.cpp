@@ -27,7 +27,7 @@ int	cmp(t_list **list, int size, int test)
 	return (res);
 }
 
-int printRes(std::vector<int> v)
+int printRes(const std::vector<int>& v)
 {
 	int res = 0;
 
@@ -54,8 +54,12 @@ t_list **gen_list(int start, int end)
 
 	for (int i = end; i >= start; i--)
 	{
-		t_list	*node = ft_list_new((void *)strdup(std::to_string(i).c_str()));
-		ft_list_push_front(list, node);
+		std::string num = std::to_string(i);
+		char *str = strdup(num.c_str());
+		t_list	*node = ft_list_new((void *)str);
+		// ft_list_push_front(list, node);
+		node->next = *list;
+		*list = node;
 	}
 	return list;
 }
@@ -74,7 +78,8 @@ int main(void)
 	v.push_back(res);
 
 	// Test 2
-	t_list *node = ft_list_new((void *)strdup("0"));
+	char *str = strdup("0");
+	t_list *node = ft_list_new(str);
 	ft_list_push_front(list, node);
 	res = cmp(list, 6, i++);
 	v.push_back(res);
@@ -84,7 +89,8 @@ int main(void)
 	v.push_back(res);
 
 	// Test 4
-	node = ft_list_new((void *)strdup("1"));
+	str = strdup("1");
+	node = ft_list_new(str);
 	ft_list_push_front(&list2, node);
 	res = cmp(&list2, 1, i++);
 	v.push_back(res);
@@ -93,5 +99,7 @@ int main(void)
 	ft_list_clear(&list2, free);
 	free(list);
 
-	std::exit(printRes(v));
+	res = printRes(v);
+	v.~vector();
+	std::exit(res);
 }

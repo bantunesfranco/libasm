@@ -83,7 +83,7 @@ int	cmp(const char *s1, int test, int mode)
 	return (res);
 }
 
-int printRes(std::vector<int> v)
+int printRes(const std::vector<int>& v)
 {
 	int res = 0;
 
@@ -138,6 +138,8 @@ int main(void)
 	res = cmp("12", i++, 1);
 	v.push_back(res);
 
-	std::exit(printRes(v));
+	res = printRes(v);
+	v.~vector();
+	std::exit(res);
 }
 

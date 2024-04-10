@@ -28,7 +28,7 @@ int	cmp(const char *s, const char *base, int mode, int test)
 	return (res);
 }
 
-int printRes(std::vector<int> v)
+int printRes(const std::vector<int>& v)
 {
 	int res = 0;
 
@@ -118,5 +118,7 @@ int main(void)
 	res = cmp("01001111", "01", 0, i++);
 	v.push_back(res);
 
-	std::exit(printRes(v));
+	res = printRes(v);
+	v.~vector();
+	std::exit(res);
 }

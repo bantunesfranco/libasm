@@ -34,7 +34,7 @@ int	cmp(const char *src, int test)
 	return (res);
 }
 
-int printRes(std::vector<int> v)
+int printRes(const std::vector<int>& v)
 {
 	int res = 0;
 
@@ -82,6 +82,8 @@ int main(void)
 	v.push_back(res);
 
 
-	std::exit(printRes(v));
+	res = printRes(v);
+	v.~vector();
+	std::exit(res);
 }
 

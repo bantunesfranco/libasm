@@ -50,7 +50,7 @@ int	cmp(t_list **list, const char *str, std::vector<std::string> arr, int test)
 	return (0);
 }
 
-int printRes(std::vector<int> v)
+int printRes(const std::vector<int>& v)
 {
 	int res = 0;
 
@@ -122,5 +122,8 @@ int main(void)
 	v.push_back(res);
 
 	ft_list_clear(list, free);
-	std::exit(printRes(v));
+
+	res = printRes(v);
+	v.~vector();
+	std::exit(res);
 }

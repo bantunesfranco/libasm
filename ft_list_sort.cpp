@@ -36,7 +36,7 @@ int	cmp(t_list **list, std::vector<int> arr, int test)
 	return (0);
 }
 
-int printRes(std::vector<int> v)
+int printRes(const std::vector<int>& v)
 {
 	int res = 0;
 
