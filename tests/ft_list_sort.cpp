@@ -11,16 +11,36 @@
 
 bool KO = false;
 
-int	cmp(t_list **list, const std::vector<std::string>& arr, int test)
+void	print_list(t_list **list, std::vector<int>& arr)
+{
+	t_list	*node = *list;
+	std::cout << "List: ";
+	while (node)
+	{
+		std::cout << (char *)node->data << " ";
+		node = node->next;
+	}
+	std::cout << std::endl;
+	std::cout << "Arr: ";
+	for (const auto i : arr)
+		std::cout << i << " ";
+	std::cout << "\n" << std::endl;
+
+}
+
+int	cmp(t_list **list, std::vector<int>& arr, int test)
 {
 	std::sort(arr.begin(), arr.end());
 	ft_list_sort(list, strcmp);
 
+	int res = 0;
 	t_list	*node = *list;
-	for (const auto &i : arr)
+	for (const auto i : arr)
 	{
-		int res = strcmp((char *)node->data, i.c_str());
-		if (res)
+		int diff = strcmp((char *)node->data, std::to_string(i).c_str());
+		
+		res = diff == 0;
+		if (!res)
 		{
 			if (!KO)
 			{
@@ -28,12 +48,11 @@ int	cmp(t_list **list, const std::vector<std::string>& arr, int test)
 				KO = true;
 			}
 			std::cerr << "Test " << test << ": expected '" << i << " got '" << (char *)node->data << "'" << std::endl;
-			return (1);
+			return (res);
 		}
 		node = node->next;
 	}
-
-	return (0);
+	return (res);
 }
 
 int printRes(const std::vector<int>& v)
@@ -57,13 +76,14 @@ int printRes(const std::vector<int>& v)
 	return res;
 }
 
-t_list **gen_list(const std::vector<std::string>& arr)
+t_list **gen_list(const std::vector<int>& arr)
 {
 	t_list **list = (t_list**)calloc(1, sizeof(t_list*));
 
 	for (auto i = arr.rbegin(); i != arr.rend(); i++)
 	{
-		char *str = strdup((*i).c_str());
+		std::string num = std::to_string(*i);
+		char *str = strdup(num.c_str());
 		ft_list_push_front(list, str);
 	}
 	return list;
@@ -72,43 +92,45 @@ t_list **gen_list(const std::vector<std::string>& arr)
 int main(void)
 {
 	t_list				**list;
-	std::vector<std::string> 	arr = {"1", "2", "3", "4", "5"};
+	std::vector<int>	arr;
 	std::vector<int>	v;
 	int					res;
 	int					i = 1;
 
 	// Test 1
-	// std::shuffle(arr.begin(), arr.end(), std::mt19937{std::random_device{}()});
+	arr = {1, 2, 3, 4, 5};
 	list = gen_list(arr);
 	res = cmp(list, arr, i++);
-	// ft_list_clear(list, free);
+	ft_list_clear(list, free);
+	free(list);
 	v.push_back(res);
 
-	// // Test 2
-	// std::shuffle(arr.begin(), arr.end(), std::mt19937{std::random_device{}()});
-	// list = gen_list(arr);
-	// res = cmp(list, arr, i++);
-	// // ft_list_clear(list, free);
-	// v.push_back(res);
+	// Test 2
+	arr = {4, 2, 1, 3, 5};
+	list = gen_list(arr);
+	res = cmp(list, arr, i++);
+	ft_list_clear(list, free);
+	free(list);
+	v.push_back(res);
 
-	// // Test 3
-	// arr.push_back(6);
-	// std::shuffle(arr.begin(), arr.end(), std::mt19937{std::random_device{}()});
-	// list = gen_list(arr);
-	// res = cmp(list, arr, i++);
-	// // ft_list_clear(list, free);
-	// v.push_back(res);
+	// Test 3
+	arr = {1, 1, 5, 2, 0, 6};
+	list = gen_list(arr);
+	res = cmp(list, arr, i++);
+	ft_list_clear(list, free);
+	free(list);
+	v.push_back(res);
 
-	// // Test 4
-	// arr.push_back(6);
-	// arr.push_back(4);
-	// std::shuffle(arr.begin(), arr.end(), std::mt19937{std::random_device{}()});
-	// list = gen_list(arr);
-	// res = cmp(list, arr, i++);
-	// // ft_list_clear(list, free);
-	// v.push_back(res);
+	// Test 4
+	arr = {5, 4, 3, 2, 1, 4, 6};
+	list = gen_list(arr);
+	res = cmp(list, arr, i++);
+	ft_list_clear(list, free);
+	free(list);
+	v.push_back(res);
 
 	res = printRes(v);
 	v.~vector();
+	arr.~vector();
 	std::exit(res);
 }

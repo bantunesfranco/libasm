@@ -27,9 +27,9 @@ extern "C" void		ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cm
 
 // Extra
 extern "C" t_list	*ft_create_elem(void *data);
-// extern "C" void		ft_list_clear(t_list **begin_list, void (*free_fct)(void *));
+extern "C" void		ft_list_clear(t_list **begin_list, void (*free_fct)(void *));
 
-void		ft_list_clear(t_list **begin_list, void (*free_fct)(void *));
+// void		ft_list_clear(t_list **begin_list, void (*free_fct)(void *));
 
 
 #endif

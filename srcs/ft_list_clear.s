@@ -17,19 +17,23 @@ ft_list_clear:					; int ft_list_clear(t_list **begin_list, void (*free_fct)(voi
 		cmp r8, 0				; if (*begin_list == NULL)
 		je .end					; return
 
+		push rsi
+
 		mov rax, [r8 + 8]		; next = head->next
+		push rax
+		push r8
+	
 		mov rdi, [r8]			; tmp = head->data
 		call rsi				; f(tmp)
 
-		mov rdi, r8				; tmp = head
-		mov r8, rax				
-		; call free
+		pop rdi
+		call free				; free(head)
 
-		mov [rdi], r8
+		pop r8
+		pop rsi
 		jmp .loop
 
 	.end:
 		pop r8
 		pop rdi
-		mov qword [rdi], 0		; *begin_list = NULL
 		ret						; return len

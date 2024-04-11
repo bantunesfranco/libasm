@@ -17,10 +17,12 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		push rcx
 		push rdx
 		push rdi
+		push r8
 
 		mov rdi, [r8]
 		call rdx
 
+		pop r8
 		pop rdi
 		pop rdx
 		pop rcx

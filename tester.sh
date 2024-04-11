@@ -1,6 +1,6 @@
 #!/bin/bash
 
-flags="-Wall -Wextra -Werror -fno-pie -no-pie -fsanitize=leak"
+flags="-Wall -Wextra -Werror -fno-pie -no-pie -g -fsanitize=leak"
 includes="-I tests"
 
 output="results.txt"
@@ -26,7 +26,7 @@ for file in tests/*.cpp; do
 		filename="${filename#tests/}"
 
 		# Compile the C++ file with libasm.a
-		c++ $flags "$file" tests/utils/ft_list_clear.cpp $includes -L. -lasm -o "$filename"
+		c++ $flags "$file" $includes -L. -lasm -o "$filename"
 
 		# Run the compiled file
 		echo "------- $filename -------" >> "$output"
