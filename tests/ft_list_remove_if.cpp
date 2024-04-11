@@ -87,36 +87,41 @@ int main(void)
 {
 	int							res;
 	int							i = 1;
-	std::vector<std::string>	arr = {"a", "b", "c", "c", "d", "a", "f"};
+	std::vector<std::string>	arr = {"a", "b", "c", "c", "d", "a", "f", "l"};
 	std::vector<int>			v;
 	t_list						**list = gen_list(arr);
 
 	// Test 1
+	arr = {"a", "b", "c", "c", "d", "a", "f"};
+	res = cmp(list, "l",  arr, i++);
+	v.push_back(res);
+
+	// Test 2
 	arr = {"a", "c", "c", "d", "a", "f"};
 	res = cmp(list, "b",  arr, i++);
 	v.push_back(res);
 
-	// Test 2
+	// Test 3
 	arr = {"c", "c", "d", "f"};
 	res = cmp(list, "a",  arr, i++);
 	v.push_back(res);
 		
-	// Test 3
+	// Test 4
 	arr = {"c", "c", "f"};
 	res = cmp(list, "d",  arr, i++);
 	v.push_back(res);
 
-	// Test 4
+	// Test 5
 	arr = {"f"};
 	res = cmp(list, "c",  arr, i++);
 	v.push_back(res);
 
-	// Test 5
+	// Test 6
 	arr = {"f"};
 	res = cmp(list, "z",  arr, i++);
 	v.push_back(res);
 
-	// Test 6
+	// Test 7
 	arr = {};
 	res = cmp(list, "f",  arr, i++);
 	v.push_back(res);
