@@ -1,9 +1,9 @@
 section .text
-	global ft_list_new
+	global ft_create_elem
 	extern malloc
 
 bits 64
-ft_list_new:				; t_list *ft_list_new(void *data)
+ft_create_elem:				; t_list *ft_create_elem(void *data)
 	push rdi				; save data in the stack
 
 	mov rdi, 16				; sizeof(t_list)

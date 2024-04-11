@@ -11,7 +11,7 @@
 
 bool KO = false;
 
-int	cmp(t_list **list, const char *str, std::vector<std::string> arr, int test)
+int	cmp(t_list **list, const char *str, const std::vector<std::string>& arr, int test)
 {
 	ft_list_remove_if(list, (void *)str, strcmp, free);
 
@@ -19,7 +19,7 @@ int	cmp(t_list **list, const char *str, std::vector<std::string> arr, int test)
 	if (!arr.size())
 	{
 		if (!node)
-			return (0);
+			return (1);
 		else
 		{
 			if (!KO)
@@ -28,7 +28,7 @@ int	cmp(t_list **list, const char *str, std::vector<std::string> arr, int test)
 				KO = true;
 			}
 			std::cerr << "Test " << test << ": expected NULL got '" << (char *)node->data << "'" << std::endl;
-			return (1);
+			return (0);
 		}
 	}
 	for (const auto &i : arr)
@@ -42,12 +42,12 @@ int	cmp(t_list **list, const char *str, std::vector<std::string> arr, int test)
 				KO = true;
 			}
 			std::cerr << "Test " << test << ": expected '" << i << " got '" << (char *)node->data << "'" << std::endl;
-			return (1);
+			return (0);
 		}
 		node = node->next;
 	}
 
-	return (0);
+	return (1);
 }
 
 int printRes(const std::vector<int>& v)
@@ -71,25 +71,25 @@ int printRes(const std::vector<int>& v)
 	return res;
 }
 
-t_list **gen_list(std::vector<std::string> arr)
+t_list **gen_list(const std::vector<std::string>& arr)
 {
 	t_list **list = (t_list**)calloc(1, sizeof(t_list*));
 
-	for (const auto &i : arr)
+	for (auto i = arr.rbegin(); i != arr.rend(); i++)
 	{
-		t_list	*node = ft_list_new((void *)strdup(i.c_str()));
-		ft_list_push_front(list, node);
+		char *str = strdup((*i).c_str());
+		ft_list_push_front(list, str);
 	}
 	return list;
 }
 
 int main(void)
 {
-	std::vector<int>	v;
-	int					res;
-	int					i = 1;
-	std::vector<std::string> 	arr = {"a", "b", "c", "c", "d", "a", "f"};
-	t_list				**list = gen_list(arr);
+	int							res;
+	int							i = 1;
+	std::vector<std::string>	arr = {"a", "b", "c", "c", "d", "a", "f"};
+	std::vector<int>			v;
+	t_list						**list = gen_list(arr);
 
 	// Test 1
 	arr = {"a", "c", "c", "d", "a", "f"};
@@ -102,18 +102,18 @@ int main(void)
 	v.push_back(res);
 		
 	// Test 3
-	arr = {"f"};
+	arr = {"c", "c", "f"};
 	res = cmp(list, "d",  arr, i++);
 	v.push_back(res);
 
 	// Test 4
 	arr = {"f"};
-	res = cmp(list, "z",  arr, i++);
+	res = cmp(list, "c",  arr, i++);
 	v.push_back(res);
 
 	// Test 5
 	arr = {"f"};
-	res = cmp(list, "f",  arr, i++);
+	res = cmp(list, "z",  arr, i++);
 	v.push_back(res);
 
 	// Test 6
@@ -122,8 +122,10 @@ int main(void)
 	v.push_back(res);
 
 	ft_list_clear(list, free);
+	free(list);
 
 	res = printRes(v);
 	v.~vector();
+	arr.~vector();
 	std::exit(res);
 }

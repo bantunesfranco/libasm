@@ -4,7 +4,7 @@
 #include <vector>
 #include "libasm.h"
 
-#define FUNC "atoi_base"
+#define FUNC "ft_atoi_base"
 
 bool KO = false;
 

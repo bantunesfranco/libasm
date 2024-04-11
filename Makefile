@@ -43,7 +43,7 @@ fclean: clean
 re: fclean all
 
 test: all
-	@echo "${CYAN}Testing${END}"
+	@echo "${CYAN}Testing ${NAME}${END}\n"
 	@./tester.sh
 
 .PHONY: all clean fclean re bonus test 

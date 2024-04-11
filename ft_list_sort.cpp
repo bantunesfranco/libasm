@@ -11,15 +11,15 @@
 
 bool KO = false;
 
-int	cmp(t_list **list, std::vector<int> arr, int test)
+int	cmp(t_list **list, const std::vector<std::string>& arr, int test)
 {
 	std::sort(arr.begin(), arr.end());
 	ft_list_sort(list, strcmp);
 
 	t_list	*node = *list;
-	for (const auto i : arr)
+	for (const auto &i : arr)
 	{
-		int res = strcmp((char *)node->data, std::to_string(i).c_str());
+		int res = strcmp((char *)node->data, i.c_str());
 		if (res)
 		{
 			if (!KO)
@@ -57,14 +57,14 @@ int printRes(const std::vector<int>& v)
 	return res;
 }
 
-t_list **gen_list(std::vector<int> arr)
+t_list **gen_list(const std::vector<std::string>& arr)
 {
 	t_list **list = (t_list**)calloc(1, sizeof(t_list*));
 
-	for (const auto i : arr)
+	for (auto i = arr.rbegin(); i != arr.rend(); i++)
 	{
-		t_list	*node = ft_list_new((void *)strdup(std::to_string(i).c_str()));
-		ft_list_push_front(list, node);
+		char *str = strdup((*i).c_str());
+		ft_list_push_front(list, str);
 	}
 	return list;
 }
@@ -72,7 +72,7 @@ t_list **gen_list(std::vector<int> arr)
 int main(void)
 {
 	t_list				**list;
-	std::vector<int> 	arr = {1, 2, 3, 4, 5};
+	std::vector<std::string> 	arr = {"1", "2", "3", "4", "5"};
 	std::vector<int>	v;
 	int					res;
 	int					i = 1;
@@ -108,5 +108,7 @@ int main(void)
 	// // ft_list_clear(list, free);
 	// v.push_back(res);
 
-	std::exit(printRes(v));
+	res = printRes(v);
+	v.~vector();
+	std::exit(res);
 }

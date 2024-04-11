@@ -1,6 +1,6 @@
 section .text
 	global ft_list_push_front
-	extern ft_list_new
+	extern ft_create_elem
 
 bits 64
 ft_list_push_front: 			; void ft_list_push_front(t_list **begin_list, void *data)
@@ -8,7 +8,7 @@ ft_list_push_front: 			; void ft_list_push_front(t_list **begin_list, void *data
 	push rdi					; save begin_list (address)
 
 	mov rdi, rsi				; set 1st arg to data
-	call ft_list_new			; node = ft_list_new(data)
+	call ft_create_elem			; node = ft_create_elem(data)
 
 	cmp rax, 0					; if (node == NULL)
 	je .error					; goto error

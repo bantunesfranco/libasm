@@ -56,10 +56,7 @@ t_list **gen_list(int start, int end)
 	{
 		std::string num = std::to_string(i);
 		char *str = strdup(num.c_str());
-		t_list	*node = ft_list_new((void *)str);
-		// ft_list_push_front(list, node);
-		node->next = *list;
-		*list = node;
+		ft_list_push_front(list, str);
 	}
 	return list;
 }
@@ -79,8 +76,7 @@ int main(void)
 
 	// Test 2
 	char *str = strdup("0");
-	t_list *node = ft_list_new(str);
-	ft_list_push_front(list, node);
+	ft_list_push_front(list, str);
 	res = cmp(list, 6, i++);
 	v.push_back(res);
 
@@ -90,8 +86,7 @@ int main(void)
 
 	// Test 4
 	str = strdup("1");
-	node = ft_list_new(str);
-	ft_list_push_front(&list2, node);
+	ft_list_push_front(&list2, str);
 	res = cmp(&list2, 1, i++);
 	v.push_back(res);
 

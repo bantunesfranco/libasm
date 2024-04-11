@@ -1,6 +1,6 @@
 #!/bin/bash
 
-flags="-Wall -Wextra -Werror -fno-pie -no-pie"
+flags="-Wall -Wextra -Werror -fno-pie -no-pie -fsanitize=leak"
 includes="-I tests"
 
 output="results.txt"
@@ -23,15 +23,16 @@ for file in tests/*.cpp; do
 	if [[ -f "$file" ]]; then
 		# Extract the filename without extension and prefix
 		filename="${file%.*}"
-		filename="${filename#tests/ft_}"
+		filename="${filename#tests/}"
 
 		# Compile the C++ file with libasm.a
 		c++ $flags "$file" tests/utils/ft_list_clear.cpp $includes -L. -lasm -o "$filename"
 
 		# Run the compiled file
+		echo "------- $filename -------" >> "$output"
 		./"$filename" 2>> "$output"
-		valgrind --leak-check=full --show-leak-kinds=all ./"$filename" >/dev/null 
-		echo ""
+		echo "" >> "$output"
+
 		# Check return value
 		if [[ $? -ne 0 ]]; then
 			error=1
@@ -41,5 +42,19 @@ for file in tests/*.cpp; do
 		rm "$filename"
 	fi
 done
+
+echo ""
+result=`cat $output | grep "memory leaks"`
+
+if [[ -z "$result" ]]; then
+	echo -e "\033[1;32mNo memory leaks\033[0m"
+else
+	echo -e "\033[1;31mMemory leaks found\033[0m"
+	error=1
+fi
+
+if [[ $error -eq 1 ]]; then
+	echo "See $output for more details"
+fi
 
 exit $error
