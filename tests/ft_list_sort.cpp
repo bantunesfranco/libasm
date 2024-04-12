@@ -113,8 +113,8 @@ int main(void)
 	v.push_back(res);
 
 	res = printRes(v);
-	arr.~vector();
-	v.~vector();
+	
+	
 
 	std::exit(res);
 }
