@@ -95,6 +95,6 @@ int main(void)
 	free(list);
 
 	res = printRes(v);
-	v.~vector();
+
 	std::exit(res);
 }

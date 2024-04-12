@@ -18,10 +18,12 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		push rdx
 		push rdi
 		push r8
+		push rsi
 
 		mov rdi, [r8]
 		call rdx
 
+		pop rsi
 		pop r8
 		pop rdi
 		pop rdx
@@ -50,11 +52,11 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		push rax
 		push r8
 
-		mov rdi, [r8]
+		mov rdi, qword [r8]
 		call rcx
 
 		pop rdi
-		call free
+		; call free
 
 		pop r8
 		pop rdx
@@ -70,11 +72,11 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		push rax
 		push r8
 
-		mov rdi, [r8]
+		mov rdi, qword [r8]
 		call rcx
 
 		pop rdi
-		call free
+		; call free
 
 		pop r8
 		pop rdx

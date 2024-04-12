@@ -39,8 +39,8 @@ int	cmp(const char *s1, int test, int mode)
 		fd = -1;
 	}
 
-	char *err1;
-	char *err2;
+	char *err1 = (char*)"";
+	char *err2 = (char*)"";
 	ssize_t b1 = 0;
 	ssize_t b2 = 0;
 
@@ -139,7 +139,7 @@ int main(void)
 	v.push_back(res);
 
 	res = printRes(v);
-	v.~vector();
+
 	std::exit(res);
 }
 

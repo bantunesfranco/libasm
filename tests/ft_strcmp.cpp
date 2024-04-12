@@ -93,7 +93,7 @@ int main(void)
 	v.push_back(res);
 
 	res = printRes(v);
-	v.~vector();
+
 	std::exit(res);
 }
 
