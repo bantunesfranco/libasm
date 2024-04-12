@@ -1,6 +1,6 @@
 #!/bin/bash
 
-flags="-Wall -Wextra -Werror -fno-pie -no-pie -g -fsanitize=address"
+flags="-Wall -Wextra -Werror -fno-pie -no-pie -g -fsanitize=leak"
 includes="-I tests"
 
 output="results.txt"
@@ -39,7 +39,7 @@ for file in tests/*.cpp; do
 		fi
 
 		# Remove the compiled file
-		# rm "$filename"
+		rm "$filename"
 	fi
 done
 

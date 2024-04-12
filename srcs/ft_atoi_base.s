@@ -25,13 +25,22 @@ ft_atoi_base:								; int ft_atoi_base(char *str, char *base)
 		inc r8								; j++
 
 	.is_invalid:
+		cmp byte [rsi+rcx], 9				; if (base[j] == '\t')
+		je .base_error
+		cmp byte [rsi+rcx], 10				; if (base[j] == '\n')
+		je .base_error
+		cmp byte [rsi+rcx], 11				; if (base[j] == '\v')
+		je .base_error
+		cmp byte [rsi+rcx], 12				; if (base[j] == '\f')
+		je .base_error
+		cmp byte [rsi+rcx], 13				; if (base[j] == '\r')
+		je .base_error
 		cmp byte [rsi+rcx], 32				; if (base[j] == ' ')
-		jle .base_error
+		je .base_error
 		cmp byte [rsi+rcx], 43				; if (base[j] == '+')
 		je .base_error
 		cmp byte [rsi+rcx], 45				; if (base[j] == '-')
 		je .base_error
-		cmp byte [rsi+rcx], 0				; if (base[j] == NULL)
 
 	.check_base_dup_loop2:
 		cmp byte [rsi+r8], 0				; while (base[j] != NULL)
@@ -53,8 +62,8 @@ ft_atoi_base:								; int ft_atoi_base(char *str, char *base)
 		jle .skip_whitespace
 
 	xor r8, r8								; multiplier = 1 (bit set to 0)
-	sub rsp, 8								; reserve 4 bytes for multiplier count
-	mov dword [rsp], 0						; multiplier count = 0
+	; sub rsp, 8								; reserve 4 bytes for multiplier count
+	; mov dword [rsp], 0						; multiplier count = 0
 
 	jmp .get_multiplier						; goto get_multiplier
 
@@ -66,12 +75,12 @@ ft_atoi_base:								; int ft_atoi_base(char *str, char *base)
 		xor r8, 1							; multiplier = -multiplier (0 xor 1 = 1) (1 xor 1 = 0) (bit set to 1, mult = -1)
 
 	.is_plus:
-		mov dword [rsp], 1					; multiplier count++
+		; mov dword [rsp], 1					; multiplier count++
 		inc rdi								; str++
 
 	.get_multiplier:
-		cmp dword [rsp], 1					; if (multiplier count != 0)
-		jg .multiplier_error
+		; cmp dword [rsp], 1					; if (multiplier count != 0)
+		; jg .multiplier_error
 
 		cmp byte [rdi], 43					; if (str[i] == '+')
 		je .is_plus							; goto is_plus
@@ -79,7 +88,7 @@ ft_atoi_base:								; int ft_atoi_base(char *str, char *base)
 		cmp byte [rdi], 45					; if (str[i] == '-')
 		je .is_minus						; goto is_minus
 	
-	add rsp, 8								; restore stack
+	; add rsp, 8								; restore stack
 
 	.atoi_start:
 		push r9
@@ -128,11 +137,11 @@ ft_atoi_base:								; int ft_atoi_base(char *str, char *base)
 		pop rcx
 		jmp .error
 
-	.multiplier_error:
-		add rsp, 8							; restore stack
-		pop r8
-		pop rcx
-		jmp .error
+	; .multiplier_error:
+	; 	add rsp, 8							; restore stack
+	; 	pop r8
+	; 	pop rcx
+	; 	jmp .error
 
 	.base_error:
 		pop r8

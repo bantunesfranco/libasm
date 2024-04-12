@@ -19,10 +19,12 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		push rdi
 		push r8
 		push rsi
+		push r9
 
 		mov rdi, [r8]
 		call rdx
 
+		pop r9
 		pop rsi
 		pop r8
 		pop rdi
@@ -38,6 +40,7 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		jmp .loop
 
 	.remove:
+		push r9
 		push rdi
 		push rsi
 		push rcx
@@ -56,13 +59,14 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		call rcx
 
 		pop rdi
-		; call free
+		call free
 
 		pop r8
 		pop rdx
 		pop rcx
 		pop rsi
 		pop rdi
+		pop r9
 
 		mov [rdi], r8
 		jmp .loop
@@ -76,13 +80,14 @@ ft_list_remove_if:			; void	ft_list_remove_if(t_list **begin_list, void *data, i
 		call rcx
 
 		pop rdi
-		; call free
+		call free
 
 		pop r8
 		pop rdx
 		pop rcx
 		pop rsi
 		pop rdi
+		pop r9
 
 		mov [r9 + 8], r8
 		jmp .loop

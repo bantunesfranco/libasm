@@ -34,6 +34,7 @@ all: ${NAME}
 
 clean: 
 	@echo "${RED}Removing objs${END}"
+	@rm -rf results.txt
 	@rm -rf obj
 
 fclean: clean

@@ -15,7 +15,6 @@ int	cmp(t_list **list, const char *str, const std::vector<std::string>& arr, int
 {
 	ft_list_remove_if(list, (void *)str, strcmp, free);
 
-	std::cout << "lmao no" << std::endl;
 	t_list	*node = *list;
 	if (!arr.size())
 	{
@@ -93,43 +92,36 @@ int main(void)
 	t_list						**list = gen_list(arr);
 
 	// Test 1
-	std::cout << "test " << i << std::endl;
 	arr = {"a", "b", "c", "c", "d", "a", "f"};
 	res = cmp(list, "l",  arr, i++);
 	v.push_back(res);
 
 	// Test 2
-	std::cout << "test " << i << std::endl;
 	arr = {"a", "c", "c", "d", "a", "f"};
 	res = cmp(list, "b",  arr, i++);
 	v.push_back(res);
 
 	// Test 3
-	std::cout << "test " << i << std::endl;
 	arr = {"c", "c", "d", "f"};
 	res = cmp(list, "a",  arr, i++);
 	v.push_back(res);
 		
 	// Test 4
-	std::cout << "test " << i << std::endl;
 	arr = {"c", "c", "f"};
 	res = cmp(list, "d",  arr, i++);
 	v.push_back(res);
 
 	// Test 5
-	std::cout << "test " << i << std::endl;
 	arr = {"f"};
 	res = cmp(list, "c",  arr, i++);
 	v.push_back(res);
 
 	// Test 6
-	std::cout << "test " << i << std::endl;
 	arr = {"f"};
 	res = cmp(list, "z",  arr, i++);
 	v.push_back(res);
 
 	// Test 7
-	std::cout << "test " << i << std::endl;
 	arr = {};
 	res = cmp(list, "f",  arr, i++);
 	v.push_back(res);
@@ -138,7 +130,5 @@ int main(void)
 	free(list);
 
 	res = printRes(v);
-
-
 	std::exit(res);
 }

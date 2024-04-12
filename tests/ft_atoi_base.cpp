@@ -12,7 +12,6 @@ int	cmp(const char *s, const char *base, int mode, int test)
 {
 	int	n1 = ft_atoi_base(s, base);
 	int	n2 = mode == 1 ? 0 : strtol(s, NULL, strlen(base));
-
 	int res = n1 == n2;
 
 	if (!res)
@@ -116,6 +115,16 @@ int main(void)
 
 	// Test 16
 	res = cmp("01001111", "01", 0, i++);
+	v.push_back(res);
+
+	// Test 17
+	char s1[] = {'0', '1', 8, 0};
+	res = cmp("1", (char*)s1, 0, i++);
+	v.push_back(res);
+
+	// Test 18
+	char s2[] = {'0', '1', 14, 0};
+	res = cmp("1", (char*)s2, 0, i++);
 	v.push_back(res);
 
 	res = printRes(v);

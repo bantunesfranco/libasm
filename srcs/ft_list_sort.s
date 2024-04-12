@@ -25,22 +25,24 @@ ft_list_sort:					; int ft_list_sort(t_list *begin_list, int (*cmp)());
 		mov rsi , [rsi]			; data2 = next->data
 		
 		push rax				; save is_swap
-		push rdx
-		push r8
-		push rsi
+		push rdx				; save cmp
+		push r8					; save head
+		push rsi				; save data2
+		push rdi				; save data1
 	
 		call rdx				; res = cmp(data1, data2)
 		movsxd rax, eax			; sign extend res
 
-		pop rsi
-		pop r8
-		pop rdx
+		pop rdi					; restore data1
+		pop rsi					; restore data2
+		pop r8					; restore head
+		pop rdx					; restore cmp
 	
 		cmp rax, 0				; if (res <= 0)
 		pop rax					; restore is_swap
 		jle .next				; next iteration
 
-		mov rax, 1
+		mov rax, 1				; is_swap = 1
 		push rdi				; tmp1 = head->data
 		push rsi				; tmp2 = next->data
 		mov rsi, [r8+8]			; next = head->next

@@ -11,23 +11,6 @@
 
 bool KO = false;
 
-void	print_list(t_list **list, std::vector<int>& arr)
-{
-	t_list	*node = *list;
-	std::cout << "List: ";
-	while (node)
-	{
-		std::cout << (char *)node->data << " ";
-		node = node->next;
-	}
-	std::cout << std::endl;
-	std::cout << "Arr: ";
-	for (const auto i : arr)
-		std::cout << i << " ";
-	std::cout << "\n" << std::endl;
-
-}
-
 int	cmp(t_list **list, std::vector<int>& arr, int test)
 {
 	std::sort(arr.begin(), arr.end());
@@ -52,7 +35,7 @@ int	cmp(t_list **list, std::vector<int>& arr, int test)
 		}
 		node = node->next;
 	}
-	return (res);
+	return (node == NULL);
 }
 
 int printRes(const std::vector<int>& v)
@@ -130,7 +113,8 @@ int main(void)
 	v.push_back(res);
 
 	res = printRes(v);
-
+	arr.~vector();
+	v.~vector();
 
 	std::exit(res);
 }
